@@ -757,7 +757,7 @@ export default function BTeknoLandingPage() {
     const body = encodeURIComponent(
       `Name / Company: ${senderName}\nTopic: ${selectedTopic || "General Consultation"}\n\nDetails:\n${inquiryMessage}`
     );
-    window.location.href = `mailto:pramadiafachrul@gmail.com?cc=bumiteknologiberkah@gmail.com&subject=${subject}&body=${body}`;
+    window.location.href = `mailto:fachrul.lingga@b-tekno.com?cc=angga.ka@b-tekno.com&subject=${subject}&body=${body}`;
   };
 
   const currentTab =
@@ -1738,11 +1738,11 @@ export default function BTeknoLandingPage() {
                 </div>
                 <div className="space-y-2 text-sm text-slate-700">
                   <a
-                    href="mailto:pramadiafachrul@gmail.com"
+                    href="mailto:fachrul.lingga@b-tekno.com "
                     className="flex items-center gap-2.5 hover:text-cyan-700 transition-colors break-all"
                   >
                     <Mail className="w-4 h-4 text-cyan-700 shrink-0" />
-                    pramadiafachrul@gmail.com
+                    fachrul.lingga@b-tekno.com 
                   </a>
                 </div>
                 <a
@@ -1765,11 +1765,11 @@ export default function BTeknoLandingPage() {
                 </div>
                 <div className="space-y-2 text-sm text-slate-700">
                   <a
-                    href="mailto:bumiteknologiberkah@gmail.com"
+                    href="mailto:angga.ka@b-tekno.com"
                     className="flex items-center gap-2.5 hover:text-cyan-700 transition-colors break-all"
                   >
                     <Mail className="w-4 h-4 text-cyan-700 shrink-0" />
-                    bumiteknologiberkah@gmail.com
+                    angga.ka@b-tekno.com
                   </a>
                 </div>
                 <a
