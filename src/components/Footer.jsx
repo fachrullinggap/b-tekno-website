@@ -1,101 +1,182 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
-import { Mail, PhoneOutgoing } from "lucide-react";
-import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
-import Image from "next/image";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { BTeknoLogo } from "./Navbar";
 
-// --- FOOTER DICTIONARY ---
 const footerDict = {
-  en: {
-    contactBox: { inquire: "Please feel free to inquire.", hours: "Hours: 08:00 - 17:00 [excluding weekends & holidays]" },
-    socials: { fb: "Facebook", insta: "Instagram", li: "Linkedin" },
-    footer: { address: "DKI Jakarta, South Jakarta", rights: "© 2026 JaLink" }
-  },
   id: {
-    contactBox: { inquire: "Silakan hubungi kami.", hours: "Jam Kerja: 08:00 - 17:00 [kecuali akhir pekan & hari libur]" },
-    socials: { fb: "Facebook", insta: "Instagram", li: "Linkedin" },
-    footer: { address: "DKI Jakarta, South Jakarta", rights: "© 2026 JaLink" }
+    tagline:
+      "Solusi aplikasi perangkat lunak industri, perangkat keras IIoT tersertifikasi, dan keamanan siber OT/IT untuk sektor energi dan manufaktur.",
+    navTitle: "Navigasi",
+    contactTitle: "Kontak Langsung",
+    rights: "Hak cipta dilindungi undang-undang.",
+    locationText: "Kawasan Industri Cikampek, Karawang, Jawa Barat, Indonesia",
+    hoursLabel: "Jam Operasional",
+    hoursValue: "Senin – Jumat: 09:00 – 17:00 WIB",
+    links: [
+      { label: "Beranda", href: "#home" },
+      { label: "Tantangan Integrasi", href: "#bottleneck" },
+      { label: "Produk & Solusi", href: "#solutions" },
+      { label: "Arsitektur DMZ 3.5", href: "#architecture" },
+      { label: "Enterprise Historian", href: "#features" },
+      { label: "Lokasi & Peta", href: "#location" },
+    ],
   },
-  ja: {
-    contactBox: { inquire: "お気軽にお問い合わせください。", hours: "受付時間 08:00-17:00 [ 土・日・祝日除く ]" },
-    socials: { fb: "Facebook", insta: "Instagram", li: "Linkedin" },
-    footer: { address: "ジャカルタ支店：南ジャカルタ", rights: "© 2026 JaLink" }
-  }
+  en: {
+    tagline:
+      "Industrial software applications, certified IIoT edge hardware, and OT/IT cybersecurity solutions for energy and manufacturing.",
+    navTitle: "Navigation",
+    contactTitle: "Direct Contacts",
+    rights: "All rights reserved.",
+    locationText: "Cikampek Industrial Corridor, Karawang, West Java, Indonesia",
+    hoursLabel: "Operational Hours",
+    hoursValue: "Monday – Friday: 09:00 – 17:00 WIB",
+    links: [
+      { label: "Home", href: "#home" },
+      { label: "Integration Bottleneck", href: "#bottleneck" },
+      { label: "Products & Solutions", href: "#solutions" },
+      { label: "DMZ 3.5 Architecture", href: "#architecture" },
+      { label: "Enterprise Historian", href: "#features" },
+      { label: "Location & Map", href: "#location" },
+    ],
+  },
 };
 
-export default function Footer({ lang }) {
-  const router = useRouter();
-  const t = footerDict[lang] || footerDict.en;
-
-  const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15 } } };
-  const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80, damping: 15 } } };
+export default function Footer({ lang = "id" }) {
+  const t = footerDict[lang] || footerDict.id;
 
   return (
-    <footer className="bg-slate-950 text-slate-400 py-20 px-6 border-t border-slate-900 rounded-t-[3rem] mt-12 relative z-10 overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[100px] -mr-40 -mt-40 pointer-events-none"></div>
-      
-      <motion.div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}>
-        
-        {/* LOGO & ADDRESS */}
-        <motion.div variants={fadeUp} className="flex flex-col gap-6">
-          <div className="text-4xl font-black text-white flex items-center gap-4 mb-2 cursor-pointer" onClick={() => router.push('/')}>
-            <Image 
-              src="/favicon.ico" 
-              alt="JaLink Logo" 
-              width={56}
-              height={56} 
-              className="object-contain bg-white rounded-xl p-2 shadow-sm"
-              unoptimized
-            /> 
-            JaLink
-          </div>
-          <p className="text-slate-400 leading-relaxed max-w-sm">{t.footer.address}</p>
-        </motion.div>
-
-        {/* CONTACT INFORMATION */}
-        <motion.div variants={fadeUp} className="flex flex-col items-start gap-4">
-          <p className="text-slate-400 font-medium">{t.contactBox.inquire}</p>
-          
-          {/* Phone Display */}
-          {/* <div className="flex items-center gap-4">
-            <PhoneOutgoing className="w-8 h-8 text-teal-500" />
-            <span className="text-3xl md:text-4xl font-extrabold text-teal-400">+62-858-6000-1198</span>
-          </div> */}
-
-          <div className="flex items-center gap-4 mt-2">
-            <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-teal-500">
-               <PhoneOutgoing size={20} />
-            </div>
-            <span className="text-xl font-bold text-slate-200">+62-858-6000-1198</span>
-          </div>
-
-          {/* Email Display (Static Text) */}
-          <div className="flex items-center gap-4 mt-2">
-            <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-teal-500">
-               <Mail size={20} />
-            </div>
-            <span className="text-xl font-bold text-slate-200">jalink.connect@gmail.com</span>
-          </div>
-
-          <p className="text-xs text-slate-500 font-medium tracking-wider mt-2">{t.contactBox.hours}</p>
-        </motion.div>
-
-        {/* SOCIAL MEDIA GRID */}
-        <motion.div variants={fadeUp}>
-          <div className="grid grid-cols-2 gap-6 auto-rows-[120px]">
-            <a href="#" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-3 bg-[#E1306C] text-white rounded-2xl group hover:-translate-y-2 transition-all shadow-lg hover:shadow-xl">
-              <FaInstagram className="w-8 h-8 group-hover:scale-120 transition-transform" /> <span className="text-base font-bold">{t.socials.insta}</span>
+    <footer className="w-full bg-slate-950 text-slate-300 border-t border-slate-800">
+      {/* Compact Edge-to-Edge Main Footer */}
+      <div className="w-full px-4 sm:px-8 lg:px-10 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Brand, Location & Operational Hours */}
+        <div className="lg:col-span-4 space-y-3.5">
+          <BTeknoLogo />
+          <p className="text-sm leading-relaxed text-slate-400 pt-1">
+            {t.tagline}
+          </p>
+          <div className="space-y-1.5 pt-1 text-xs">
+            <p className="font-mono text-slate-400">
+              PT Bumi Teknologi Berkah (B-Tekno)
+            </p>
+            <a
+              href="https://www.google.com/maps?q=-6.4189,107.4567"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              <MapPin className="w-3.5 h-3.5 shrink-0" />
+              <span>{t.locationText} (-6.4189, 107.4567)</span>
             </a>
-            <a href="https://wa.me/+6285860001198" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-3 bg-[#25D366] text-white rounded-2xl group hover:-translate-y-2 transition-all shadow-lg hover:shadow-xl">
-              <FaWhatsapp className="w-8 h-8 group-hover:scale-120 transition-transform" /> <span className="text-base font-bold">WhatsApp</span>
-            </a>
+            <div className="flex items-center gap-2 text-slate-300 pt-0.5">
+              <Clock className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>
+                <strong className="font-semibold text-white">
+                  {t.hoursLabel}:
+                </strong>{" "}
+                {t.hoursValue}
+              </span>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
-      </motion.div>
-      <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-slate-800/50 text-sm text-center font-medium">{t.footer.rights}</div>
+        {/* Navigation Links */}
+        <div className="lg:col-span-2 space-y-3">
+          <h4 className="text-xs sm:text-sm font-mono font-bold uppercase tracking-widest text-white">
+            {t.navTitle}
+          </h4>
+          <ul className="space-y-2 text-sm text-slate-400">
+            {t.links.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Enlarged Direct Contacts (50% Width on Desktop) */}
+        <div className="lg:col-span-6 space-y-3.5">
+          <h4 className="text-sm sm:text-base font-mono font-bold uppercase tracking-widest text-white">
+            {t.contactTitle}
+          </h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-colors space-y-3">
+              <div>
+                <p className="text-base sm:text-lg font-bold text-white leading-snug">
+                  Fachrul Lingga Pramadia
+                </p>
+                <p className="text-xs sm:text-sm font-mono text-cyan-400 mt-0.5">
+                  Manager Technical
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 text-sm sm:text-[15px] text-slate-200 pt-1">
+                <a
+                  href="mailto:fachrul.lingga@b-tekno.com"
+                  className="inline-flex items-center gap-2.5 hover:text-cyan-300 transition-colors break-all"
+                >
+                  <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
+                  fachrul.lingga@b-tekno.com
+                </a>
+                <a
+                  href="https://wa.me/6282128027268"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 hover:text-emerald-300 transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
+                  +62 821-2802-7268
+                </a>
+              </div>
+            </div>
+
+            <div className="p-5 sm:p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-colors space-y-3">
+              <div>
+                <p className="text-base sm:text-lg font-bold text-white leading-snug">
+                  Angga Kusumah
+                </p>
+                <p className="text-xs sm:text-sm font-mono text-cyan-400 mt-0.5">
+                  Marketing
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 text-sm sm:text-[15px] text-slate-200 pt-1">
+                <a
+                  href="mailto:angga.k@b-tekno.com"
+                  className="inline-flex items-center gap-2.5 hover:text-cyan-300 transition-colors break-all"
+                >
+                  <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
+                  angga.k@b-tekno.com
+                </a>
+                <a
+                  href="https://wa.me/6281322522708"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 hover:text-emerald-300 transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
+                  +62 813-2252-2708
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Compact Edge-to-Edge Bottom Strip */}
+      <div className="w-full border-t border-slate-800/80 pt-4 pb-16 sm:py-4 px-4 sm:px-8 lg:pl-10 sm:pr-20">
+        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+          <p>
+            © {new Date().getFullYear()} B-Tekno. {t.rights}
+          </p>
+          <p className="font-mono text-slate-500 text-center sm:text-right">
+            SCADA • DCS • IIoT • LEVEL 3.5 DMZ • HISTORIAN
+          </p>
+        </div>
+      </div>
     </footer>
   );
 }

@@ -1,100 +1,129 @@
-# Career Diversity Inc. - Corporate Website 🌐
+# B-Tekno Website
 
-A modern, highly interactive, and multilingual corporate website built to connect Japan and the world through global talent solutions. 
+Corporate website for **PT Bumi Teknologi Berkah (B-Tekno)**, focused on OT/IT convergence, industrial software, IIoT edge hardware, and OT/IT cybersecurity solutions.
 
-This project is built with the cutting-edge **Next.js 16 App Router**, styled with **Tailwind CSS v4**, and animated using **Framer Motion** to provide a seamless, premium user experience.
+The website is available in Indonesian and English and is built as a responsive single-page Next.js application.
 
----
+## Main Features
 
-## ✨ Key Features
+- Indonesian and English language switching with `localStorage` persistence
+- Responsive navigation and mobile menu
+- Industrial solutions and OT/IT architecture overview
+- Enterprise historian and operational feature sections
+- Industry use cases
+- Interactive location and Google Maps section
+- Technical consultation form that opens the visitor's email client
+- Direct company and WhatsApp contact links
+- Smooth entrance and scroll animations
+- Copy-to-clipboard coordinates
 
-* 🌍 **Multilingual Support (i18n):** Seamlessly switch between English (EN), Indonesian (ID), and Japanese (JA) without page reloads. Language preferences are saved via `localStorage`.
-* 🚀 **Next.js App Router:** Utilizes the latest Next.js features including Server and Client Components, optimized routing, and static generation.
-* ✨ **Fluid Animations:** Beautiful page transitions, scroll-triggered reveal animations, and interactive hover states powered by `framer-motion`.
-* 📰 **Dynamic Content Pages:** Scalable, dynamically routed pages for News (`/news/[id]`) and Columns (`/column/[id]`) with client-side filtering and search.
-* 📱 **Fully Responsive:** Carefully crafted layouts that look perfect on desktops, tablets, and mobile devices.
+## Technology
 
----
+- **Next.js 16** using the App Router
+- **React 19**
+- **Tailwind CSS 4**
+- **Framer Motion**
+- **Lucide React** and **React Icons**
+- **Geist** and **Geist Mono** fonts
 
-## 🛠️ Tech Stack
-
-* **Framework:** [Next.js (v16.2.1)](https://nextjs.org/) - App Router
-* **Library:** [React (v19.2.4)](https://react.dev/)
-* **Styling:** [Tailwind CSS (v4)](https://tailwindcss.com/)
-* **Animation:** [Framer Motion](https://www.framer.com/motion/)
-* **Icons:** [Lucide React](https://lucide.dev/) & [React Icons](https://react-icons.github.io/react-icons/)
-
----
-
-## 📂 Project Structure
+## Project Structure
 
 ```text
-riandi-website/
-├── public/                 # Static assets (images, fonts, etc.)
+.
+├── public/
+│   └── logo.png              # Main B-Tekno brand logo
 ├── src/
-│   ├── app/                # Next.js App Router directory
-│   │   ├── about/          # About Us page
-│   │   ├── column/         # Column listing & dynamic article pages
-│   │   ├── contact/        # Contact form page
-│   │   ├── news/           # News listing & dynamic article pages
-│   │   ├── services/       # Service details routing
-│   │   ├── globals.css     # Global styles & Tailwind configurations
-│   │   ├── layout.jsx      # Root layout wrapper
-│   │   └── page.jsx        # Main Landing/Home page
-│   └── components/         # Reusable UI components
-│       ├── Footer.jsx      # Global footer with integrated localized text
-│       └── Navbar.jsx      # Global sticky navbar with language selector
-├── next.config.mjs         # Next.js configuration
-├── package.json            # Project dependencies & scripts
-└── tailwind.config.js      # Tailwind CSS configuration (if applicable)
+│   ├── app/
+│   │   ├── globals.css       # Global styles and Tailwind setup
+│   │   ├── layout.jsx        # Root layout and website metadata
+│   │   └── page.jsx          # Main bilingual landing page
+│   └── components/
+│       ├── Footer.jsx        # Bilingual footer and contact details
+│       └── Navbar.jsx        # Responsive navigation and language switcher
+├── next.config.mjs
+├── postcss.config.mjs
+└── package.json
 ```
 
----
+## Requirements
 
-## 🚀 Getting Started
+- Node.js 18.17 or newer
+- npm
 
-To get this project up and running on your local machine, follow these steps:
+## Installation
 
-### 1. Prerequisites
-
-Make sure you have Node.js installed (v18.17 or higher is recommended for Next.js).
-
-### 2. Installation
-
-Clone the repository and install the dependencies:
+From the project directory:
 
 ```bash
-# Install dependencies
 npm install
 ```
 
-### 3. Running the Development Server
+## Development
 
-Start the local development server:
+Start the Next.js development server:
 
 ```bash
 npm run dev
 ```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Available Commands
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Run the production build |
+| `npm run lint` | Run ESLint |
+
+## Production Build
+
+```bash
+npm run build
+npm run start
 ```
 
-Open http://localhost:3000 in your browser to see the result.
+## Customization
 
----
+### Content and sections
 
-## 📜 Available Scripts
+Most landing-page content is maintained in the Indonesian and English dictionaries in `src/app/page.jsx`. The main content includes:
 
-In the project directory, you can run:
+- Hero and CTA text
+- Integration challenges
+- Products and solutions
+- OT/IT architecture
+- Historian features
+- Industry use cases
+- Company and location information
+- Consultation form fields
 
-- **`npm run dev`** — Runs the app in development mode.
-- **`npm run build`** — Builds the app for production to the `.next` folder. Includes static site generation for dynamic routes.
-- **`npm run start`** — Starts the production server using the built app.
-- **`npm run lint`** — Runs ESLint to find and fix code style issues.
+### Navigation and footer
 
----
+- Navigation links and language labels are defined in `src/components/Navbar.jsx`.
+- Footer navigation and contact details are defined in `src/components/Footer.jsx`.
 
-## 💡 Notes on Dynamic Routing
+### Branding
 
-For sections like `/news/[id]` and `/column/[id]`, the application uses a hybrid approach:
+- Replace `public/logo.png` to update the site logo.
+- Update metadata in `src/app/layout.jsx` to change the page title or description.
+- Update theme tokens and global styles in `src/app/globals.css`.
 
-- **Server Component** (`page.jsx`) — Handles `generateStaticParams()` to ensure Next.js can export the pages as static HTML for S3 hosting.
-- **Client Component** (e.g., `ArticleClient.jsx`) — Handles the interactive UI, animations, and extracting URL parameters via `useParams()`.
+### Company location
+
+The current location configuration is in `src/app/page.jsx`:
+
+- Cikampek Industrial Corridor, Karawang, West Java
+- Coordinates: `-6.4189, 107.4567`
+
+Update `COMPANY_LOCATION` and the matching footer map link if the location changes.
+
+## Contact Information
+
+- **Technical:** Fachrul Lingga Pramadia — `fachrul.lingga@b-tekno.com` — `+62 821-2802-7268`
+- **Marketing:** Angga Kusumah — `angga.k@b-tekno.com` — `+62 813-2252-2708`
+
+## Notes
+
+Several visual elements use local SVG illustrations or embedded placeholder graphics. Replace the matching constants or files in `src/app/page.jsx` and `public/` with approved photography and final brand assets before production release.

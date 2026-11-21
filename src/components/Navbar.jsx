@@ -1,134 +1,158 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
-// --- NAVBAR DICTIONARY ---
 const navDict = {
-  en: { 
-    home: "Home", 
-    individuals: "For Individuals", 
-    companies: "For Companies", 
-    submit: "Submit Your Profile", 
-    about: "About", 
-    contact: "Contact" 
+  id: {
+    links: [
+      { label: "Beranda", href: "#home" },
+      { label: "Solusi", href: "#solutions" },
+      { label: "Arsitektur OT/IT", href: "#architecture" },
+      { label: "Fitur Utama", href: "#features" },
+      { label: "Industri", href: "#industries" },
+      { label: "Lokasi", href: "#location" },
+      { label: "Konsultasi", href: "#contact" },
+    ],
   },
-  id: { 
-    home: "Beranda", 
-    individuals: "Untuk Individu", 
-    companies: "Untuk Perusahaan", 
-    submit: "Kirim Profil Anda", 
-    about: "Tentang", 
-    contact: "Kontak" 
+  en: {
+    links: [
+      { label: "Home", href: "#home" },
+      { label: "Solutions", href: "#solutions" },
+      { label: "OT/IT Architecture", href: "#architecture" },
+      { label: "Core Features", href: "#features" },
+      { label: "Industries", href: "#industries" },
+      { label: "Location", href: "#location" },
+      { label: "Consult Us", href: "#contact" },
+    ],
   },
-  ja: { 
-    home: "トップ", 
-    individuals: "個人のお客様へ", 
-    companies: "法人のお客様へ", 
-    submit: "プロフィールを提出", 
-    about: "私たちについて", 
-    contact: "お問い合わせ" 
-  }
 };
 
-export default function Navbar({ lang, handleLangChange, theme = "blend" }) {
-  const router = useRouter();
-  const [isScrolled, setIsScrolled] = useState(false);
+export function BTeknoLogo({ className = "" }) {
+  return (
+    <a href="#home" className={`inline-flex items-center shrink-0 ${className}`}>
+      <img
+        src="/logo.png"
+        alt="B-Tekno"
+        className="h-10 sm:h-12 w-auto object-contain"
+      />
+    </a>
+  );
+}
+
+export default function Navbar({ lang = "id", onLangChange }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const t = navDict[lang] || navDict.id;
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const t = navDict[lang] || navDict.en;
-
-  const navDrop = { 
-    hidden: { opacity: 0, y: -30 }, 
-    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80, damping: 20 } } 
-  };
-
-  const textColor = isScrolled ? "text-white" : (theme === "solid" ? "text-slate-900" : "text-white");
-  
-  const bgColor = isScrolled 
-    ? "bg-slate-950/80 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.1)] border-b border-white/10" 
-    : "bg-transparent border-b border-transparent";
-
-  const padding = isScrolled ? "py-4 px-6 md:px-12 lg:px-16" : "py-6 px-6 md:px-12 lg:px-16";
-
-  const navClasses = `fixed top-0 left-0 w-full z-50 transition-[background-color,color,padding,border-color] duration-300 ${bgColor} ${textColor} ${padding}`;
+  const isOverlay = !scrolled && !mobileOpen;
 
   return (
-    <motion.nav 
-      initial="hidden" 
-      animate="visible" 
-      variants={navDrop} 
-      className={navClasses}
+    <header
+      className={`fixed top-0 inset-x-0 w-full z-50 transition-all duration-300 ${
+        isOverlay
+          ? "bg-gradient-to-b from-slate-950/75 to-transparent py-4"
+          : "bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs py-3"
+      }`}
     >
-      <div className="w-full flex justify-between items-center">
-        
-        {/* --- LOGO SECTION --- */}
-        <div className="text-2xl font-black tracking-tighter flex items-center gap-3 cursor-pointer" onClick={() => router.push('/')}>
-          <div className="bg-white p-1 rounded-lg shadow-sm flex items-center justify-center">
-            <Image 
-              src="/favicon.ico" 
-              alt="JaLink Logo" 
-              width={26} 
-              height={26} 
-              className="object-contain"
-              unoptimized
-            /> 
-          </div>
-          <span>JaLink</span>
-        </div>
-        
-        {/* --- MENU SECTION --- */}
-        <div className="flex items-center gap-8 font-medium text-sm">
-          <div className="hidden md:flex gap-6">
-            <button onClick={() => router.push('/')} className="hover:text-[#00c2a8] transition-colors relative group">
-              {t.home}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00c2a8] transition-all group-hover:w-full"></span>
-            </button>
-            <button onClick={() => router.push('/individuals')} className="hover:text-[#00c2a8] transition-colors relative group">
-              {t.individuals}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00c2a8] transition-all group-hover:w-full"></span>
-            </button>
-            <button onClick={() => router.push('/companies')} className="hover:text-[#00c2a8] transition-colors relative group">
-              {t.companies}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00c2a8] transition-all group-hover:w-full"></span>
-            </button>
-            <button onClick={() => router.push('/submit')} className="hover:text-[#00c2a8] transition-colors relative group">
-              {t.submit}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00c2a8] transition-all group-hover:w-full"></span>
-            </button>
-            <button onClick={() => router.push('/about')} className="hover:text-[#00c2a8] transition-colors relative group">
-              {t.about}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00c2a8] transition-all group-hover:w-full"></span>
-            </button>
-            <button onClick={() => router.push('/contact')} className="hover:text-[#00c2a8] transition-colors relative group">
-              {t.contact}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00c2a8] transition-all group-hover:w-full"></span>
-            </button>
-          </div>
-          
-          <select 
-            className={`border rounded-full px-3 py-1 outline-none cursor-pointer transition-colors ${
-              isScrolled || theme !== "solid"
-                ? "bg-white/10 backdrop-blur-md border-white/30 text-white hover:bg-white/20 focus:ring-2 focus:ring-white/50" 
-                : "bg-slate-100 border-slate-200 text-slate-900 hover:bg-slate-200 focus:ring-2 focus:ring-[#00c2a8]"
+      {/* Full Edge-to-Edge Bar */}
+      <div className="w-full px-4 sm:px-8 lg:px-10 flex items-center justify-between gap-4">
+        <BTeknoLogo />
+
+        {/* Right Side: Menu Links + ID/EN Switcher */}
+        <div className="flex items-center gap-6 lg:gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
+            {t.links.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`text-sm font-medium transition-colors ${
+                  isOverlay
+                    ? "text-white/90 hover:text-cyan-300"
+                    : "text-slate-700 hover:text-cyan-700"
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Compact ID / EN Switcher */}
+          <div
+            className={`inline-flex items-center rounded-full p-0.5 text-xs font-mono border transition-colors ${
+              isOverlay
+                ? "bg-slate-950/40 border-white/30 text-white backdrop-blur-md"
+                : "bg-slate-100 border-slate-200 text-slate-700"
             }`}
-            value={lang} 
-            onChange={handleLangChange}
+            role="group"
+            aria-label="Language Switcher"
           >
-            <option className="text-black" value="en">EN</option>
-            <option className="text-black" value="id">ID</option>
-            <option className="text-black" value="ja">JA</option>
-          </select>
+            <button
+              type="button"
+              onClick={() => onLangChange("id")}
+              className={`px-2.5 py-1 rounded-full font-semibold transition-colors ${
+                lang === "id"
+                  ? isOverlay
+                    ? "bg-white text-slate-950"
+                    : "bg-slate-900 text-white"
+                  : "opacity-75 hover:opacity-100"
+              }`}
+            >
+              ID
+            </button>
+            <button
+              type="button"
+              onClick={() => onLangChange("en")}
+              className={`px-2.5 py-1 rounded-full font-semibold transition-colors ${
+                lang === "en"
+                  ? isOverlay
+                    ? "bg-white text-slate-950"
+                    : "bg-slate-900 text-white"
+                  : "opacity-75 hover:opacity-100"
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen((prev) => !prev)}
+            className={`lg:hidden p-2 rounded-lg border transition-colors ${
+              isOverlay
+                ? "border-white/30 text-white bg-slate-950/30"
+                : "border-slate-200 text-slate-800 bg-slate-50"
+            }`}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </div>
-    </motion.nav>
+
+      {/* Mobile Dropdown Drawer */}
+      {mobileOpen && (
+        <div className="lg:hidden w-full bg-white border-b border-slate-200 px-4 sm:px-8 py-4 space-y-1 shadow-lg">
+          {t.links.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setMobileOpen(false)}
+              className="block py-2.5 text-sm font-medium text-slate-800 hover:text-cyan-700 border-b border-slate-100 last:border-none"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </header>
   );
 }

@@ -1,6 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,38 +12,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "JALINK ACADEMY",
+  title: "B-Tekno | Industrial IoT & OT/IT Convergence Solutions",
   description:
-    "Master Japanese from Zero with Guided Lessons, and Build Your Future Career in Japan.",
+    "Menjembatani aset OT dan kecerdasan IT melalui perangkat lunak industri, perangkat keras IoT, dan keamanan siber untuk sektor energi dan manufaktur.",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="id"
+      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth antialiased bg-white text-slate-900`}
     >
-      <body className="relative min-h-screen overflow-x-hidden">
-        
-        {/* Background Image */}
-        <div className="fixed inset-0 -z-10">
-          <Image
-            src="/background.png"
-            alt="Japanese Background"
-            fill
-            priority
-            className="object-cover blur-[2px] brightness-45"
-          />
-
-          {/* Soft Overlay */}
-          <div className="absolute inset-0 bg-[#f5e9d7]/60" />
-        </div>
-
-        {/* Website Content */}
-        <main className="relative z-10">
-          {children}
-        </main>
-
+      <body className="bg-white text-slate-900 min-h-screen overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-900">
+        <main className="relative">{children}</main>
       </body>
     </html>
   );
